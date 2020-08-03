@@ -9,5 +9,6 @@ app.use(express.static(path.join('./', 'dist')));
 app.use(express.json());
 
 app.listen(port, () => {
+	// eslint-disable-next-line no-console
 	console.log(`http://localhost:${port} で起動しています。`);
 });
