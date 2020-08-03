@@ -10,7 +10,7 @@
 		"dev": "concurrently \"npm run server\" \"npm run start\"",
 		"typecheck": "tsc -p . --noEmit",
 		"lint": "npm run lint:eslint && npm run lint:stylelint",
-		"lint:eslint": "eslit src --fix",
+		"lint:eslint": "eslint src --fix",
 		"lint:stylelint": "stylelint src --fix"
 	},
 	"repository": {
