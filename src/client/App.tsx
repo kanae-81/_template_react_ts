@@ -3,10 +3,10 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import Todo from './Components/Todo';
 
-const app = () => {
+const app = (): JSX.Element => {
 	return (
 		<>
-			<h2>Hello Japan.</h2>
+			<h2>Hello world.</h2>
 			<Todo />
 		</>
 	);
