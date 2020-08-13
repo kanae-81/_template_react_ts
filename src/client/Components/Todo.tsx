@@ -1,44 +1,39 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, changeText } from '../Actions/Todo';
+import { test } from '../Actions/Todo';
 
-const Todo = (value: any) => {
-	const [todo, setState] = useState<string>(value.todos.todo);
-	const [todos] = useState<string[]>(value.todos.todos);
+const Todo = (props: any) => {
+	// const [todo, setTodo] = useState<string>(props.todo);
+	// const [todos, setTodos] = useState<string[]>(props.todos);
 
-	const onSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-		e.preventDefault();
-		addTodo;
-	};
+	// const onSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+	// 	e.preventDefault();
+	// 	setTodos([...todos, todo]);
+	// };
 
-	const onChangeText = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-		setState(e.target.value);
-	}
+	// const onChangeText = (e: {
+	// 	target: { value: React.SetStateAction<string> };
+	// }) => {
+	// 	setTodo(e.target.value);
+	// };
+
 	return (
 		<>
 			<h2>Todo</h2>
-			<input
-				value={todo}
-				type="text"
-				onChange={(e) => onChangeText(e)}
-			/>
-			<p>{todo}</p>
-			<input
-				type="submit"
-				onClick={(e) => {
-					onSubmit(e);
-				}}
-			/>
+			{/* <input value={todo} type="text" onChange={(e) => onChangeText(e)} />
+			<p>{todo}</p> */}
+			<input type="submit" onClick={props.test} />
 
-			<ul>
+			{/* <ul>
 				<li>
 					<label>
 						<input type="checkbox" />
 						{todos}
 					</label>
 				</li>
-				{/* {todos.map((v) => {
+				{todos.map((v) => {
 					return (
+						// eslint-disable-next-line react/jsx-key
 						<li>
 							<label>
 								<input type="checkbox" />
@@ -46,12 +41,14 @@ const Todo = (value: any) => {
 							</label>
 						</li>
 					);
-				})} */}
-			</ul>
+				})}
+			</ul> */}
 		</>
 	);
 };
 
-const mapDispatchProps = { addTodo, changeText };
+// これがアクションクリエーター？
+const mapStateToProps = (state: any) => ({ value: state.todos.value });
+const mapDispatchProps = { test };
 
-export default connect(state => state, mapDispatchProps)(Todo);
+export default connect(mapStateToProps, mapDispatchProps)(Todo);

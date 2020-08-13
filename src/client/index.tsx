@@ -7,7 +7,6 @@ import { store } from './Store/store';
 
 render(
 	<Provider store={store}>
-		{console.log(store)}
 		<App />
 	</Provider>,
 	document.getElementById('app'),
