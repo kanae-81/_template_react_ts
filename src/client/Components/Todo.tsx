@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { test } from '../Actions/Todo';
+import { addTodo, changeText } from '../Actions/Todo';
 
 const Todo = (props: any) => {
-	// const [todo, setTodo] = useState<string>(props.todo);
-	// const [todos, setTodos] = useState<string[]>(props.todos);
-
-	// const onSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-	// 	e.preventDefault();
-	// 	setTodos([...todos, todo]);
-	// };
+	const todo = props.todo;
+	const todos = props.todos;
 
 	// const onChangeText = (e: {
 	// 	target: { value: React.SetStateAction<string> };
@@ -18,37 +13,30 @@ const Todo = (props: any) => {
 	// };
 
 	return (
-		<>
+		<React.Fragment>
 			<h2>Todo</h2>
-			{/* <input value={todo} type="text" onChange={(e) => onChangeText(e)} />
-			<p>{todo}</p> */}
-			<input type="submit" onClick={props.test} />
-
-			{/* <ul>
-				<li>
-					<label>
-						<input type="checkbox" />
-						{todos}
-					</label>
-				</li>
-				{todos.map((v) => {
+			<input type="text" onChange={props.changeText} />
+			<p>{todo}</p>
+			<p>{todos}</p>
+			<input type="submit" onClick={props.addTodo} />
+			<ul>
+				{todos.map((value: any) => {
 					return (
-						// eslint-disable-next-line react/jsx-key
 						<li>
 							<label>
 								<input type="checkbox" />
-								{v}
+								{value}
 							</label>
 						</li>
 					);
 				})}
-			</ul> */}
-		</>
+			</ul>
+		</React.Fragment>
 	);
 };
 
 // これがアクションクリエーター？
-const mapStateToProps = (state: any) => ({ value: state.todos.value });
-const mapDispatchProps = { test };
+const mapStateToProps = (state: any) => state.todos;
+const mapDispatchProps = { addTodo, changeText };
 
 export default connect(mapStateToProps, mapDispatchProps)(Todo);
