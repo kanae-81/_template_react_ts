@@ -5,6 +5,7 @@ import { addTodo, changeName, changeAge } from '../Actions/Todo';
 const Todo = (props: any) => {
 	return (
 		<React.Fragment>
+			{/* React.Fragmentいらなかったかも？よくわからん */}
 			<h2>Todo</h2>
 			<div>
 				<label htmlFor="name">
