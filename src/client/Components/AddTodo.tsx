@@ -3,6 +3,17 @@ import { useDispatch } from 'react-redux';
 import { addtodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
 
+import {
+    Button,
+    TextField,
+    Box,
+} from '@material-ui/core';
+
+import {
+    AddRounded,
+    KeyboardReturn,
+} from '@material-ui/icons';
+
 const AddTodo = () => {
     const dispatch = useDispatch();
     const [title, settitle] = useState<string>('');
@@ -19,10 +30,11 @@ const AddTodo = () => {
             <h2>新規作成</h2>
             <div>
                 <label htmlFor="title">
-                    タイトル：
-					<input
-                        type="text"
-                        value={title}
+                    <TextField
+                        label="Title"
+                        defaultValue={title}
+                        variant="filled"
+                        size="small"
                         onChange={(e) => {
                             settitle(e.target.value);
                         }}
@@ -30,18 +42,27 @@ const AddTodo = () => {
                 </label>
                 <br></br>
                 <label htmlFor="text">
-                    内容：
-					<input
-                        type="text"
-                        value={text}
+                    <TextField
+                        label="text"
+                        variant="filled"
+                        defaultValue={text}
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         onChange={(e) => {
                             settext(e.target.value);
                         }}
                     />
                 </label>
-			</div>
-            <input type="submit" onClick={() => onSubmit()} />
-            <button onClick={() => dispatch(push('/'))}>戻る</button>
+            </div>
+            <Box component="span" m={1}>
+                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => onSubmit()}>作成</Button>
+            </Box>
+            <Box component="span" m={1}>
+                <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />}  onClick={() => dispatch(push('/'))}>戻る</Button>
+            </Box>
         </React.Fragment>
     );
 };

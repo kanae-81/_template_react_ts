@@ -3,6 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { edittodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
 
+import {
+    Button,
+    TextField,
+    Box
+} from '@material-ui/core';
+
+import {
+    Create,
+    KeyboardReturn,
+} from '@material-ui/icons';
+
+
 const EditTodo = () => {
     const dispatch = useDispatch();
     const todos = useSelector((state: any) => state.todos.todos);
@@ -21,10 +33,12 @@ const EditTodo = () => {
             <h2>編集</h2>
             <div>
                 <label htmlFor="title">
-                    タイトル：
-					<input
+					<TextField
+                        label="Title"
                         type="text"
-                        value={title}
+                        defaultValue={title}
+                        variant="filled"
+                        size="small"
                         onChange={(e) => {
                             settitle(e.target.value);
                         }}
@@ -32,18 +46,29 @@ const EditTodo = () => {
                 </label>
                 <br></br>
                 <label htmlFor="text">
-                    内容：
-					<input
+					<TextField
                         type="text"
-                        value={text}
+                        label="text"
+                        variant="filled"
+                        defaultValue={text}
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         onChange={(e) => {
                             settext(e.target.value);
                         }}
                     />
                 </label>
 			</div>
-            <input type="submit" onClick={() => onSubmit()} />
-            <button onClick={() => dispatch(push('/'))}>戻る</button>
+            <Box component="span" m={1}>
+                <Button variant="contained" color="primary" startIcon={<Create />} onClick={() => onSubmit()} >編集</Button>
+            </Box>
+            <Box component="span" m={1}>
+                <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />} onClick={() => dispatch(push('/'))}>戻る</Button>
+            </Box>
+
         </React.Fragment>
     );
 };
