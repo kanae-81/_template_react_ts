@@ -1,5 +1,5 @@
-import { ADD_TODO } from '../Actions/Todo';
-import initialState from '../Store/initialState';
+import { ADD_TODO } from './actions';
+import initialState from '../../Store/initialState';
 
 export default (state: any = initialState.todos, action: any) => {
 	const data = action.payload;

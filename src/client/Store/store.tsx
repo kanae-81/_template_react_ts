@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
-import todos from '../Reducers/Todos';
+import thunk from 'redux-thunk';
+import todos from '../reducks/todo/reducers';
 
 export const store = (history: any) => {
 	return createStore(
@@ -9,6 +10,6 @@ export const store = (history: any) => {
 			router: connectRouter(history),
 			todos: todos,
 		}),
-		applyMiddleware(routerMiddleware(history)),
+		applyMiddleware(routerMiddleware(history), thunk),
 	);
 };
