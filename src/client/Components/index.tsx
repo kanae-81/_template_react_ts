@@ -2,3 +2,4 @@
 export { default as Login } from './Login';
 export { default as Todo } from './Todo';
 export { default as AddTodo } from './AddTodo';
+export { default as EditTodo } from './EditTodo';

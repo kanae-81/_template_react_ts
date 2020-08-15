@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addtodo } from '../reducks/todo/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { edittodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
 
-const AddTodo = () => {
+const EditTodo = () => {
     const dispatch = useDispatch();
-    const [title, settitle] = useState<string>('');
-    const [text, settext] = useState<any>('')
+    const todos = useSelector((state: any) => state.todos.todos);
+    const id = location.hash.substr(1);
+    const [title, settitle] = useState<string>(todos[id].title);
+    const [text, settext] = useState<any>(todos[id].text);
     const onSubmit = () => {
         if (title === '' || text === '') {
             alert('入力してください');
             return;
         }
-        dispatch(addtodo(title, text));
+        dispatch(edittodo(id, title, text));
     };
     return (
         <React.Fragment>
-            <h2>新規作成</h2>
+            <h2>編集</h2>
             <div>
                 <label htmlFor="title">
                     タイトル：
@@ -46,4 +48,4 @@ const AddTodo = () => {
     );
 };
 
-export default AddTodo;
+export default EditTodo;

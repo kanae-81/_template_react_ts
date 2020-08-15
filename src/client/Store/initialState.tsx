@@ -6,7 +6,7 @@ const initialState = {
         username: '',
     },
     todos: {
-		todos: [{title:'a',text:'b'}],
+		todos: [],
     },
 };
 
