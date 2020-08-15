@@ -1,52 +1,66 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { addTodo, changeName, changeAge } from '../Actions/Todo';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo } from '../Actions/Todo';
 
-const Todo = (props: any) => {
+const Todo = () => {
+	const dispatch = useDispatch();
+	const todos = useSelector((state: any) => state.todos);
+	const [title, settitle] = useState<string>('');
+	const [text, settext] = useState<any>('');
+
+	const onSubmit = () => {
+		if (title === '' || text === '') {
+			alert('入力してください');
+			return;
+		}
+		settitle('');
+		settext('');
+		dispatch(addTodo(title, text));
+	};
 	return (
 		<React.Fragment>
-			{/* React.Fragmentいらなかったかも？よくわからん */}
 			<h2>Todo</h2>
 			<div>
-				<label htmlFor="name">
-					名前：
+				<label htmlFor="title">
+					タイトル：
 					<input
 						type="text"
-						value={props.name}
+						value={title}
 						onChange={(e) => {
-							props.changeName(e);
+							settitle(e.target.value);
 						}}
 					/>
 				</label>
 				<br></br>
-				<label htmlFor="age">
-					年齢：
+				<label htmlFor="text">
+					内容：
 					<input
-						type="number"
-						value={props.age}
+						type="text"
+						value={text}
 						onChange={(e) => {
-							props.changeAge(e);
+							settext(e.target.value);
 						}}
 					/>
-					歳
 				</label>
 			</div>
-			<input type="submit" onClick={props.addTodo} />
+			<input type="submit" onClick={() => onSubmit()} />
 			<table>
 				<thead>
 					<tr>
-						<th>名前</th>
-						<th>年齢</th>
+						<th>index</th>
+						<th>タイトル</th>
+						<th>内容</th>
 					</tr>
 				</thead>
 				<tbody>
-					{props.todos.map((value: any, index: any) => {
+					{todos.todos.map((value: any, index: any) => {
 						return (
 							<tr key={index}>
-								<td>{value.name}</td>
-								<td>{value.age}歳</td>
+								<td>{index}</td>
+								<td>{value.title}</td>
+								<td>{value.text}</td>
 							</tr>
-						)
+						);
 					})}
 				</tbody>
 			</table>
@@ -54,8 +68,4 @@ const Todo = (props: any) => {
 	);
 };
 
-// これがアクションクリエーター？
-const mapStateToProps = (state: any) => state.todos;
-const mapDispatchProps = { addTodo, changeName, changeAge };
-
-export default connect(mapStateToProps, mapDispatchProps)(Todo);
+export default Todo;

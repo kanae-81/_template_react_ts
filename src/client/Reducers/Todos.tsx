@@ -1,32 +1,13 @@
-import { ADD_TODO, CHANGE_NAME, CHANGE_AGE } from '../Actions/Todo';
+import { ADD_TODO } from '../Actions/Todo';
+import initialState from '../Store/initialState';
 
-const initialState = {
-	name: '',
-	age: '',
-	todos: [],
-};
-
-export default (state: any = initialState, action: any) => {
+export default (state: any = initialState.todos, action: any) => {
+	const data = action.payload;
 	switch (action.type) {
-		case CHANGE_NAME:
+		case ADD_TODO:
 			return {
-				name: action.name,
-				age: state.age,
-				todos: state.todos,
+				todos: [...state.todos, { title: data.title, text: data.text }],
 			};
-		case CHANGE_AGE:
-			return {
-				name: state.name,
-				age: action.age,
-				todos: state.todos,
-			};
-		case ADD_TODO: {
-			return {
-				name: '',
-				age: '',
-				todos: [...state.todos, { name: state.name, age: state.age }],
-			};
-		}
 		default:
 			return state;
 	}
