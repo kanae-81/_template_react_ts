@@ -20,11 +20,13 @@ import {
 
 const Todo = () => {
 	const dispatch = useDispatch();
+	const user = useSelector((state: any) => state.users);
 	const todos = useSelector((state: any) => state.todos);
 	const renderTodos = getTodos(todos);
 	return (
 		<React.Fragment>
 			<h2>Todo</h2>
+			<p>{user.username}さんのリスト</p>
 			<Table>
 				<TableHead>
 					<TableRow>

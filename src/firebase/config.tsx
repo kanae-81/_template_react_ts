@@ -5,4 +5,6 @@ export const firebaseConfig = {
     projectId: "practice-questionnaire",
     storageBucket: "practice-questionnaire.appspot.com",
     messagingSenderId: "738722080495",
+    appId: "1:738722080495:web:5c04ec9646e396f6e41d1a",
+    measurementId: "G-ECRT48XP81"
 };
