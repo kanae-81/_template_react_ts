@@ -14,7 +14,6 @@ import {
     KeyboardReturn,
 } from '@material-ui/icons';
 
-
 const EditTodo = () => {
     const dispatch = useDispatch();
     const todos = useSelector((state: any) => state.todos.todos);

@@ -4,7 +4,7 @@ export const EDIT_TODO = 'EDIT_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 
 // ここをちゃんとアロー関数にしないとだめだった
-export const addTodo = (title: any, text: any) => {
+export const addTodoAction = (title: any, text: any) => {
 	return {
 		type: ADD_TODO,
 		payload: {
@@ -14,7 +14,7 @@ export const addTodo = (title: any, text: any) => {
 	};
 };
 
-export const editTodo = (id: any, title: any, text: any) => {
+export const editTodoAction = (id: any, title: any, text: any) => {
 	return {
 		type: EDIT_TODO,
 		payload: {
@@ -25,7 +25,7 @@ export const editTodo = (id: any, title: any, text: any) => {
 	};
 };
 
-export const deleteTodo = (id: any) => {
+export const deleteTodoAction = (id: any) => {
 	return {
 		type: DELETE_TODO,
 		payload: {

@@ -1,10 +1,14 @@
-import { addTodo, editTodo, deleteTodo } from './actions';
+import { addTodoAction, editTodoAction, deleteTodoAction } from './actions';
 import { push } from 'connected-react-router';
 // import axios from 'axios'
 
 export const addtodo = (title: any, text: any) => {
     return async (dispatch: any) => {
-		const pushTodo = addTodo(title, text);
+        if(title === '' || text === '') {
+            alert('入力してください');
+            return;
+        }
+        const pushTodo = addTodoAction(title, text);
         dispatch(pushTodo);
         dispatch(push('/'));
     }
@@ -12,7 +16,7 @@ export const addtodo = (title: any, text: any) => {
 
 export const edittodo = (id: any, title: any, text: any) => {
     return async (dispatch: any) => {
-        const pushTodo = editTodo(id, title, text);
+        const pushTodo = editTodoAction(id, title, text);
         dispatch(pushTodo);
         dispatch(push('/'));
     }
@@ -20,7 +24,7 @@ export const edittodo = (id: any, title: any, text: any) => {
 
 export const deletetodo = (id: any) => {
     return async (dispatch: any) => {
-        dispatch(deleteTodo(id));
+        dispatch(deleteTodoAction(id));
         dispatch(push('/'));
     }
 }

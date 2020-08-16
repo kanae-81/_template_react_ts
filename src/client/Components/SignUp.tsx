@@ -1,7 +1,8 @@
 import React, { useCallback, useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { TextInput, PrimaryButton } from './UIkit';
+import { TextInput, PrimaryButton, PrimaryLink } from './UIkit';
 import { signUp } from '../reducks/users/operations'
+import { push } from 'connected-react-router';
 
 const SignUp = () => {
     const dispatch = useDispatch();
@@ -69,6 +70,9 @@ const SignUp = () => {
                 variant={'contained'}
                 color={'primary'}
             onClick={() => { dispatch(signUp(username, email, password, confirmPassword)); }} />
+            <p>
+                <PrimaryLink onClick={() => dispatch(push('/signin'))} text={'アカウントをお持ちの方はこちら'} />
+            </p>
         </div>
     );
 };

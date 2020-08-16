@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUsername } from '../reducks/users/selectors';
 import { getTodos } from '../reducks/todo/selectors';
 import { push } from 'connected-react-router';
 import { deletetodo } from '../reducks/todo/operations';
+import { signOut } from '../reducks/users/operations';
 import {
 	Table,
 	TableBody,
@@ -20,13 +22,18 @@ import {
 
 const Todo = () => {
 	const dispatch = useDispatch();
-	const user = useSelector((state: any) => state.users);
-	const todos = useSelector((state: any) => state.todos);
-	const renderTodos = getTodos(todos);
+	const selector = useSelector((state: any) => state);
+	const renderTodos = getTodos(selector);
+	const username = getUsername(selector);
 	return (
 		<React.Fragment>
 			<h2>Todo</h2>
-			<p>{user.username}さんのリスト</p>
+			<p>
+				{username}さんのリスト
+				<Box component="span" m={2}>
+					<Button size="large" variant="outlined" color="primary" onClick={() => dispatch(signOut())}>ログアウト</Button>
+				</Box>
+			</p>
 			<Table>
 				<TableHead>
 					<TableRow>

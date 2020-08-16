@@ -1,6 +1,50 @@
 import { auth, FirebaseTimestamp, db } from '../../../firebase'
 import { push } from 'connected-react-router';
-import { signInAction } from './actions'
+import { signInAction, signOutAction } from './actions';
+
+export const listenAuthState = () => {
+    return async (dispatch: any) => {
+        return auth.onAuthStateChanged(user => {
+            if(user) {
+                const uid = user.uid;
+                if (uid !== null) {
+                    db.collection('users').doc(uid).get()
+                        .then(snapshot => {
+                            const data = snapshot.data();
+                            if (data !== undefined) {
+                                dispatch(signInAction({
+                                    isSignin: true,
+                                    role: data.role,
+                                    uid: uid,
+                                    username: data.username
+                                }))
+                                dispatch(push('/'));
+                            }
+                        })
+                }
+            }else {
+                dispatch(push('/signin'))
+            }
+        })
+    }
+}
+
+export const reset = (email: any) => {
+    return async (dispatch: any) => {
+        if(email === '') {
+            alert('必須項目が未入力です');
+            return false;
+        } else {
+            return auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert('入力されたアドレスにパスワードをお送りしました。');
+                    dispatch(push('/signin'))
+                }).catch(() => {
+                    alert('パスワードリセットに失敗しました');
+                })
+        }
+    }
+}
 
 export const signIn = (email: any, password: any) => {
     return async (dispatch: any) => {
@@ -9,7 +53,7 @@ export const signIn = (email: any, password: any) => {
             alert('必須項目が未入力です');
             return false;
         }
-        auth.signInWithEmailAndPassword(email, password)
+        return auth.signInWithEmailAndPassword(email, password)
             .then(result => {
                 const user = result.user;
                 if(user) {
@@ -29,8 +73,6 @@ export const signIn = (email: any, password: any) => {
                                 }
                             })
                     }
-                }else {
-                    alert('ログインできませんでした');
                 }
             })
     }
@@ -58,7 +100,7 @@ export const signUp = (username: any, email: any, password: any, confirmPassword
                     const userInitialData = {
                         created_at: timestamp,
                         email: email,
-                        roke: 'customer',
+                        role: 'customer',
                         uid: uid,
                         updated_at: timestamp,
                         username: username
@@ -69,6 +111,16 @@ export const signUp = (username: any, email: any, password: any, confirmPassword
                             dispatch(push('/'));
                         })
                 }
+            })
+    }
+}
+
+export const signOut = () => {
+    return async (dispatch: any) => {
+        auth.signOut()
+            .then (() => {
+                dispatch(signOutAction())
+                dispatch(push('/signin'))
             })
     }
 }
