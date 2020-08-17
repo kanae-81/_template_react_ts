@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsername } from '../reducks/users/selectors';
-import { getTodos } from '../reducks/todo/selectors';
+import { getUsername, getUserId } from '../reducks/users/selectors';
 import { push } from 'connected-react-router';
-import { deletetodo } from '../reducks/todo/operations';
+import { listenTodos, deletetodo } from '../reducks/todo/operations';
 import { signOut } from '../reducks/users/operations';
 import {
 	Table,
@@ -19,12 +18,17 @@ import {
 	Create,
 	AddRounded
 } from '@material-ui/icons';
+import { getTodos } from '../reducks/todo/selectors';
 
 const Todo = () => {
 	const dispatch = useDispatch();
 	const selector = useSelector((state: any) => state);
-	const renderTodos = getTodos(selector);
+	const todos = getTodos(selector);
 	const username = getUsername(selector);
+	const uid = getUserId(selector);
+	useEffect(() => {
+		dispatch(listenTodos(uid))
+	}, []);
 	return (
 		<React.Fragment>
 			<h2>Todo</h2>
@@ -44,18 +48,18 @@ const Todo = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{renderTodos.todos.map((value: any, index: any) => {
+					{todos.todos.map((value: any, index: any) => {
 						return (
-							<TableRow key={index}>
+							<TableRow key={value.id}>
 								<TableCell>{index + 1}</TableCell>
 								<TableCell>{value.title}</TableCell>
 								<TableCell>{value.text}</TableCell>
 								<TableCell>
 									<Box component="span" m={1}>
-										<Button variant="outlined" color="primary" startIcon={<Create />} onClick={() => dispatch(push(`/edit#${index}`))}>編集</Button>
+										<Button variant="outlined" color="primary" startIcon={<Create />} onClick={() => dispatch(push(`/edit/${value.id}`))}>編集</Button>
 									</Box>
 									<Box component="span" m={1}>
-										<Button variant="outlined" color="secondary" startIcon={<Delete />} onClick={() => dispatch(deletetodo(index))}>削除</Button>
+										<Button variant="outlined" color="secondary" startIcon={<Delete />} onClick={() => dispatch(deletetodo(uid, value.id))}>削除</Button>
 									</Box>
 								</TableCell>
 							</TableRow>

@@ -13,7 +13,7 @@ const Router = () => {
 			<Auth>
 				<Route exact path="(/)?" component={Todo} />
 				<Route exact path="/add" component={AddTodo} />
-				<Route exact path="/edit" component={EditTodo} />
+				<Route path="/edit(/:id)?" component={EditTodo} />
 			</Auth>
 		</Switch>
 	);

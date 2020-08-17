@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addtodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
+import { getUserId } from '../reducks/users/selectors';
+
 
 import {
     Button,
@@ -16,6 +18,8 @@ import {
 
 const AddTodo = () => {
     const dispatch = useDispatch();
+    const selector = useSelector((state: any) => state);
+    const uid = getUserId(selector);
     const [title, setTitle] = useState<string>('');
     const [text, setText] = useState<any>('');
     const InputTitle = useCallback((event) => {
@@ -53,7 +57,7 @@ const AddTodo = () => {
                 </label>
             </div>
             <Box component="span" m={1}>
-                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(title, text))}>作成</Button>
+                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(uid, title, text))}>作成</Button>
             </Box>
             <Box component="span" m={1}>
                 <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />}  onClick={() => dispatch(push('/'))}>戻る</Button>
