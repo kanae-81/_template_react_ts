@@ -38,8 +38,8 @@ export const reset = (email: any) => {
                 .then(() => {
                     alert('入力されたアドレスにパスワードをお送りしました。');
                     dispatch(push('/signin'))
-                }).catch(() => {
-                    alert('パスワードリセットに失敗しました');
+                }).catch((e) => {
+                    alert(e.message);
                 })
         }
     }
@@ -73,6 +73,9 @@ export const signIn = (email: any, password: any) => {
                             })
                     }
                 }
+            }).catch((e) => {
+                console.log(e)
+                alert(e.message);
             })
     }
 }
@@ -110,6 +113,9 @@ export const signUp = (username: any, email: any, password: any, confirmPassword
                             dispatch(push('/'));
                         })
                 }
+            }).catch((e) => {
+                console.log(e)
+                alert(e.message);
             })
     }
 }

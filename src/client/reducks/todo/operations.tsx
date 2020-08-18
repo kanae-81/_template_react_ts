@@ -4,6 +4,13 @@ import { FirebaseTimestamp, db } from '../../../firebase';
 
 
 const todoRef = db.collection('todos');
+const validation = (title: any, text: any) => {
+    if (title === '' || text === '') {
+        alert('入力してください');
+        return;
+    }
+}
+
 
 export const listenTodos = (uid: any) => {
     return async (dispatch: any) => {
@@ -21,13 +28,9 @@ export const listenTodos = (uid: any) => {
 
 export const addtodo = (uid:any, title: any, text: any) => {
     return async (dispatch: any) => {
-        if(title === '' || text === '') {
-            alert('入力してください');
-            return;
-        }
+        validation(title, text);
         const timeStamp = FirebaseTimestamp.now();
         const id = todoRef.doc().id;
-        const pushTodo = addTodoAction(id, title, text);
         const data = {
             id: id,
             title: title,
@@ -37,7 +40,7 @@ export const addtodo = (uid:any, title: any, text: any) => {
 
         return todoRef.doc(uid).collection('todolist').doc(id).set(data)
             .then(() => {
-                dispatch(pushTodo);
+                dispatch(addTodoAction(id, title, text));
                 dispatch(push('/'));
             }).catch((error: any) => {
                 throw new Error(error);
@@ -47,13 +50,9 @@ export const addtodo = (uid:any, title: any, text: any) => {
 
 export const edittodo = (uid: any, id: any, title: any, text: any) => {
     return async (dispatch: any) => {
-        if (title === '' || text === '') {
-            alert('入力してください');
-            return;
-        }
+        validation(title, text);
         const timeStamp = FirebaseTimestamp.now();
         const data = {
-            id: id,
             title: title,
             text: text,
             updated_at: timeStamp
@@ -63,21 +62,21 @@ export const edittodo = (uid: any, id: any, title: any, text: any) => {
             .then(() => {
                 dispatch(editTodoAction(id, title, text));
                 dispatch(push('/'));
+            }).catch((error: any) => {
+                throw new Error(error);
             })
     }
 }
 
 export const deletetodo = (uid: any, id: any) => {
     return async (dispatch: any) => {
-
         return todoRef.doc(uid).collection('todolist').doc(id).delete()
         .then(() => {
-                dispatch(push('/'));
                 dispatch(deleteTodoAction(id));
+                dispatch(push('/'));
             }).catch((error: any) => {
                 throw new Error(error);
             })
-
     }
 }
 

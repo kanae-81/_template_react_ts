@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { edittodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
@@ -20,27 +20,27 @@ const EditTodo = () => {
     const selector = useSelector((state: any) => state);
     const todos = useSelector((state: any) => state.todos.todos);
     const uid = getUserId(selector);
-    const id = window.location.pathname.split('/edit/')[1];
 
-    const [title, setTitle] = useState<string>('');
-    const [text, setText] = useState<string>('');
+    let initialTitle = '';
+    let initialText = '';
+
+    let id = window.location.pathname.split('/')[1];
+    if (id === 'edit') {
+        id = window.location.pathname.split('/edit/')[1];
+        const targetData = todos.find((element: any) => element.id === id);
+        initialTitle = targetData.title;
+        initialText = targetData.text;
+    }
+
+    const [title, setTitle] = useState<string>(initialTitle);
+    const [text, setText] = useState<string>(initialText);
+
     const InputTitle = useCallback((event) => {
         setTitle(event.target.value);
     }, [setTitle])
     const InputText = useCallback((event) => {
         setText(event.target.value);
     }, [setText])
-
-    useEffect (() => {
-        if(id !== undefined){
-            const targetData = todos.find((element: any) => element.id === id);
-            const targetNum = todos.indexOf(targetData);
-            console.log(targetNum);
-            // 初期値がセットできない問題
-            // setTitle(todos[targetNum].title);
-            // setText(todos[targetNum].text);
-        }
-    })
 
     return (
         <React.Fragment>
