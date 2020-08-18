@@ -1,4 +1,4 @@
-import { listenTodoAction, addTodoAction, editTodoAction, deleteTodoAction } from './actions';
+import { listenTodoAction, addTodoAction, editTodoAction, completeTodoAction, deleteTodoAction } from './actions';
 import { push } from 'connected-react-router';
 import { FirebaseTimestamp, db } from '../../../firebase';
 
@@ -11,7 +11,6 @@ const validation = (title: any, text: any) => {
     }
 }
 
-
 export const listenTodos = (uid: any) => {
     return async (dispatch: any) => {
         todoRef.doc(uid).collection('todolist').get()
@@ -19,7 +18,7 @@ export const listenTodos = (uid: any) => {
                 let data: any = [];
                 snapshot.forEach((doc) => {
                     const todo = doc.data();
-                    data = [...data, {id:doc.id, title: todo.title, text: todo.text}]
+                    data = [...data, {id:doc.id, status:todo.status, title: todo.title, text: todo.text}]
                 });
                 dispatch(listenTodoAction(data));
             })
@@ -33,6 +32,7 @@ export const addtodo = (uid:any, title: any, text: any) => {
         const id = todoRef.doc().id;
         const data = {
             id: id,
+            status: 'created',
             title: title,
             text: text,
             create_at: timeStamp
@@ -68,12 +68,30 @@ export const edittodo = (uid: any, id: any, title: any, text: any) => {
     }
 }
 
-export const deletetodo = (uid: any, id: any) => {
+export const completedtodo = (uid: any, id: any) => {
+    return async (dispatch: any) => {
+        const timeStamp = FirebaseTimestamp.now();
+        const data = {
+            status: 'completed',
+            updated_at: timeStamp
+        }
+        return todoRef.doc(uid).collection('todolist').doc(id).update(data)
+            .then(() => {
+                dispatch(completeTodoAction(id));
+                dispatch(push('/'));
+            }).catch((error: any) => {
+                throw new Error(error);
+            })
+    }
+}
+
+
+export const deletetodo = (uid: any, id: any, path: any) => {
     return async (dispatch: any) => {
         return todoRef.doc(uid).collection('todolist').doc(id).delete()
         .then(() => {
                 dispatch(deleteTodoAction(id));
-                dispatch(push('/'));
+                dispatch(push(path));
             }).catch((error: any) => {
                 throw new Error(error);
             })

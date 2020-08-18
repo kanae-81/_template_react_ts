@@ -2,6 +2,7 @@
 export const LISTEN_TODO = 'LISTEN_TODO';
 export const ADD_TODO = 'ADD_TODO';
 export const EDIT_TODO = 'EDIT_TODO';
+export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 
 // ここをちゃんとアロー関数にしないとだめだった
@@ -17,6 +18,7 @@ export const addTodoAction = (id: any, title: any, text: any) => {
 		type: ADD_TODO,
 		payload: {
 			id: id,
+			status: 'created',
 			title: title,
 			text: text,
 		},
@@ -30,6 +32,15 @@ export const editTodoAction = (id: any, title: any, text: any) => {
 			id: id,
 			title: title,
 			text: text,
+		},
+	};
+};
+
+export const completeTodoAction = (id: any) => {
+	return {
+		type: COMPLETE_TODO,
+		payload: {
+			id: id,
 		},
 	};
 };

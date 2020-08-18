@@ -1,4 +1,4 @@
-import { LISTEN_TODO, ADD_TODO, EDIT_TODO, DELETE_TODO } from './actions';
+import { LISTEN_TODO, ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO } from './actions';
 import initialState from '../../Store/initialState';
 
 export default (state: any = initialState.todos, action: any) => {
@@ -16,6 +16,11 @@ export default (state: any = initialState.todos, action: any) => {
 		case ADD_TODO:
 		case EDIT_TODO:
 			return state;
+		case COMPLETE_TODO:
+			state.todos[targetNum].status = 'completed';
+			return {
+				todos: state.todos
+			};
 		case DELETE_TODO:
 			state.todos.splice(targetNum, 1);
 			return {
