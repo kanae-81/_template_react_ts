@@ -13,9 +13,8 @@ const useStyles = makeStyles(() =>
 		grow: {
 			flexGrow: 1,
 		},
-	})
+	}),
 );
-
 
 const Header = () => {
 	const dispatch = useDispatch();
