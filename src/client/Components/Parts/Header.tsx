@@ -6,16 +6,29 @@ import { signOut } from '../../reducks/users/operations';
 import { Button, AppBar, Toolbar, Typography } from '@material-ui/core';
 // import { Delete, Create, Check, AddRounded } from '@material-ui/icons';
 // import { getTodos } from '../reducks/todo/selectors';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() =>
+	createStyles({
+		grow: {
+			flexGrow: 1,
+		},
+	})
+);
+
 
 const Header = () => {
 	const dispatch = useDispatch();
 	const selector = useSelector((state: any) => state);
 	const username = getUsername(selector);
+
+	const classes = useStyles();
+
 	return (
-		<React.Fragment>
+		<div className={classes.grow}>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h5">おいでませ、{username}さん</Typography>
+					<Typography variant="h5" className={classes.grow}>おいでませ、{username}さん</Typography>
 					<Button
 						size="large"
 						variant="contained"
@@ -39,7 +52,7 @@ const Header = () => {
 					</Button>
 				</Toolbar>
 			</AppBar>
-		</React.Fragment>
+		</div>
 	);
 };
 
