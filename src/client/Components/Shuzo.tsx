@@ -52,6 +52,7 @@ const Img = styled.img`
 	height: 100%;
 	z-index: -1;
 `
+
 const Container = styled.div`
 	position: fixed;
 	bottom: 10px;
@@ -74,7 +75,7 @@ const Shuzo = () => {
 		<React.Fragment>
 			<Header />
 			<Img src={shuzoImg} />
-			<Title>修造が{username}さんを応援するよ！</Title>
+			<Title>修造はいつでも{username}さんの味方！</Title>
 			<Main>
 				<MainText>{shuzo}</MainText>
 			</Main>

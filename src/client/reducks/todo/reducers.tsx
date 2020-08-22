@@ -1,4 +1,4 @@
-import { LISTEN_TODO, ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO } from './actions';
+import { LISTEN_TODO, SORT_TODO, ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO, RETURN_TODO } from './actions';
 import initialState from '../../Store/initialState';
 
 export default (state: any = initialState.todos, action: any) => {
@@ -7,6 +7,7 @@ export default (state: any = initialState.todos, action: any) => {
 	const targetNum = state.todos.indexOf(targetData);
 	switch (action.type) {
 		case LISTEN_TODO:
+		case SORT_TODO:
 			if(data){
 				return {
 					todos: data,
@@ -18,6 +19,12 @@ export default (state: any = initialState.todos, action: any) => {
 			return state;
 		case COMPLETE_TODO:
 			state.todos[targetNum].status = 'completed';
+			state.todos[targetNum].updated_at = data.updated_at;
+			return {
+				todos: state.todos
+			};
+		case RETURN_TODO:
+			state.todos[targetNum].status = 'created';
 			return {
 				todos: state.todos
 			};

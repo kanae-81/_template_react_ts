@@ -18,6 +18,8 @@ const EditTodo = () => {
 
 	let initialTitle = '';
 	let initialText = '';
+	let initialDeadLine = '';
+	let initialProgress = 0;
 
 	let id = window.location.pathname.split('/')[1];
 	if (id === 'edit') {
@@ -25,10 +27,14 @@ const EditTodo = () => {
 		const targetData = todos.find((element: any) => element.id === id);
 		initialTitle = targetData.title;
 		initialText = targetData.text;
+		initialDeadLine = targetData.deadLine;
+		initialProgress = targetData.progress;
 	}
 
 	const [title, setTitle] = useState<string>(initialTitle);
 	const [text, setText] = useState<string>(initialText);
+	const [deadLine, setDeadLine] = useState<string>(initialDeadLine);
+	const [progress, setProgress] = useState<number>(initialProgress);
 
 	const InputTitle = useCallback(
 		(event) => {
@@ -41,6 +47,18 @@ const EditTodo = () => {
 			setText(event.target.value);
 		},
 		[setText],
+	);
+	const InputDeadLine = useCallback(
+		(event) => {
+			setDeadLine(event.target.value);
+		},
+		[setDeadLine],
+	);
+	const InputProgress = useCallback(
+		(event) => {
+			setProgress(event.target.value);
+		},
+		[setProgress],
 	);
 
 	return (
@@ -73,13 +91,41 @@ const EditTodo = () => {
 						onChange={InputText}
 					/>
 				</label>
+				<br></br>
+				<label htmlFor="text">
+					<TextField
+						label="deadLine"
+						variant="filled"
+						type="date"
+						defaultValue={deadLine}
+						margin="normal"
+						InputLabelProps={{
+							shrink: true,
+						}}
+						onChange={InputDeadLine}
+					/>
+				</label>
+				<br></br>
+				<label htmlFor="number">
+					<TextField
+						label="progress"
+						variant="filled"
+						type="number"
+						defaultValue={progress}
+						margin="normal"
+						InputLabelProps={{
+							shrink: true,
+						}}
+						onChange={InputProgress}
+					/>
+				</label>
 			</div>
 			<Box component="span" m={1}>
 				<Button
 					variant="contained"
 					color="primary"
 					startIcon={<Create />}
-					onClick={() => dispatch(edittodo(uid, id, title, text))}>
+					onClick={() => dispatch(edittodo(uid, id, title, text, deadLine, progress))}>
 					編集
 				</Button>
 			</Box>

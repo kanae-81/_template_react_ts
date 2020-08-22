@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsername, getUserId } from '../reducks/users/selectors';
 import { push } from 'connected-react-router';
-import { listenTodos, deletetodo } from '../reducks/todo/operations';
+import { listenTodos, deletetodo, returntodo } from '../reducks/todo/operations';
 import {
 	Table,
 	TableBody,
@@ -12,7 +12,7 @@ import {
 	Button,
 	Box,
 } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { Delete, Replay } from '@material-ui/icons';
 import { getTodos } from '../reducks/todo/selectors';
 
 import Header from './Parts/Header';
@@ -45,28 +45,44 @@ const CompleteTodo = () => {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>index</TableCell>
+						<TableCell>完了日</TableCell>
 						<TableCell>タイトル</TableCell>
 						<TableCell>内容</TableCell>
 						<TableCell></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{todos.todos.map((value: any, index: any) => {
+					{todos.todos.map((value: any) => {
+						const seconds = value.updated_at.seconds;
 						if (value.status === 'completed') {
+							const ts = seconds;
+							const d = new Date(ts * 1000);
+							const year = d.getFullYear();
+							const month = d.getMonth() + 1;
+							const day = d.getDate();
+							const date = (year + '-' + month + '-' + day);
 							return (
 								<TableRow key={value.id}>
-									<TableCell>{index + 1}</TableCell>
+									<TableCell>{date}</TableCell>
 									<TableCell>{value.title}</TableCell>
 									<TableCell>{value.text}</TableCell>
 									<TableCell>
 										<Box component="span" m={1}>
 											<Button
 												variant="outlined"
+												color="primary"
+												startIcon={<Replay />}
+												onClick={() => dispatch(returntodo(uid, value.id))}>
+												戻す
+											</Button>
+										</Box>
+										<Box component="span" m={1}>
+											<Button
+												variant="outlined"
 												color="secondary"
 												startIcon={<Delete />}
 												onClick={() =>
-													dispatch(deletetodo(uid, value.id, '/complete'))
+													dispatch(deletetodo(uid, value.id))
 												}>
 												削除
 											</Button>

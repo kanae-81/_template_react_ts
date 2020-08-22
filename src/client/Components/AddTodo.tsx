@@ -22,12 +22,16 @@ const AddTodo = () => {
     const uid = getUserId(selector);
     const [title, setTitle] = useState<string>('');
     const [text, setText] = useState<any>('');
+    const [deadLine, setDsadLine] = useState<any>('');
     const InputTitle = useCallback((event) => {
         setTitle(event.target.value);
     }, [setTitle])
     const InputText = useCallback((event) => {
         setText(event.target.value);
     }, [setText])
+    const InputDeadLine = useCallback((event) => {
+        setDsadLine(event.target.value);
+    }, [setDsadLine])
     return (
         <React.Fragment>
             <h2>新規作成</h2>
@@ -55,9 +59,23 @@ const AddTodo = () => {
                         onChange={InputText}
                     />
                 </label>
+                <br></br>
+                <label htmlFor="text">
+                    <TextField
+                        label="deadLine"
+                        variant="filled"
+                        type="date"
+                        defaultValue={deadLine}
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={InputDeadLine}
+                    />
+                </label>
             </div>
             <Box component="span" m={1}>
-                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(uid, title, text))}>作成</Button>
+                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(uid, title, text, deadLine))}>作成</Button>
             </Box>
             <Box component="span" m={1}>
                 <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />}  onClick={() => dispatch(push('/'))}>戻る</Button>

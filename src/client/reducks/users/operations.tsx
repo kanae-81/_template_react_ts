@@ -74,7 +74,6 @@ export const signIn = (email: any, password: any) => {
                     }
                 }
             }).catch((e) => {
-                console.log(e)
                 alert(e.message);
             })
     }
@@ -110,11 +109,10 @@ export const signUp = (username: any, email: any, password: any, confirmPassword
 
                     db.collection('users').doc(uid).set(userInitialData)
                         .then(() => {
-                            dispatch(push('/'));
+                            dispatch(push('/signin'));
                         })
                 }
             }).catch((e) => {
-                console.log(e)
                 alert(e.message);
             })
     }

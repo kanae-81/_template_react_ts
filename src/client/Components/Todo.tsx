@@ -6,6 +6,7 @@ import {
 	listenTodos,
 	deletetodo,
 	completedtodo,
+	sorttodo,
 } from '../reducks/todo/operations';
 import {
 	Table,
@@ -15,11 +16,34 @@ import {
 	TableCell,
 	Button,
 	Box,
+	CircularProgress,
+	Typography,
 } from '@material-ui/core';
-import { Delete, Create, Check, AddRounded } from '@material-ui/icons';
+import { Delete, Create, Check, AddRounded, ArrowDownwardRounded, ArrowUpwardRounded } from '@material-ui/icons';
 import { getTodos } from '../reducks/todo/selectors';
-
 import Header from './Parts/Header';
+import styled from 'styled-components'
+
+const  SortBtn = styled.button`
+	border: none;
+	cursor: pointer;
+	outline: none;
+	padding: 0;
+	appearance: none;
+	border: 2px solid #000;
+	border-radius: 2px;
+	margin-left: 8px;
+	transition: all 0.2s ease;
+	&:hover {
+		opacity: 0.5;
+	}
+`
+
+const TextCenter = styled.div`
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+`
 
 const Todo = () => {
 
@@ -50,18 +74,68 @@ const Todo = () => {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>index</TableCell>
-						<TableCell>タイトル</TableCell>
-						<TableCell>内容</TableCell>
+						<TableCell>
+							<TextCenter>
+								<p>期限</p>
+								<SortBtn type="button" onClick={() => dispatch(sorttodo(todos, 'deadLine', 'up'))}>
+									<ArrowDownwardRounded></ArrowDownwardRounded>
+								</SortBtn>
+								<SortBtn type="button" onClick={() => dispatch(sorttodo(todos, 'deadLine', 'down'))}>
+									<ArrowUpwardRounded></ArrowUpwardRounded>
+								</SortBtn>
+							</TextCenter>
+						</TableCell>
+						<TableCell>
+							<TextCenter>
+								<p>進捗</p>
+								<SortBtn type="button" onClick={() => dispatch(sorttodo(todos, 'progress', 'up'))}>
+									<ArrowDownwardRounded></ArrowDownwardRounded>
+								</SortBtn>
+								<SortBtn type="button" onClick={() => dispatch(sorttodo(todos, 'progress', 'down'))}>
+									<ArrowUpwardRounded></ArrowUpwardRounded>
+								</SortBtn>
+							</TextCenter>
+							</TableCell>
+						<TableCell>
+							<TextCenter>
+								タイトル
+							</TextCenter>
+						</TableCell>
+						<TableCell>
+							<TextCenter>
+								内容
+							</TextCenter>
+						</TableCell>
 						<TableCell></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{todos.todos.map((value: any, index: any) => {
+					{todos.todos.map((value: any) => {
 						if (value.status === 'created') {
 							return (
 								<TableRow key={value.id}>
-									<TableCell>{index + 1}</TableCell>
+									<TableCell>
+											{value.deadLine}
+									</TableCell>
+									<TableCell>
+										<Box position="relative" display="inline-flex">
+											<CircularProgress variant="static" value={Number(value.progress)} />
+											<Box
+												top={0}
+												left={0}
+												bottom={0}
+												right={0}
+												position="absolute"
+												display="flex"
+												alignItems="center"
+												justifyContent="center"
+											>
+												<Typography variant="caption" component="div" color="textSecondary">
+													{`${Math.round(value.progress)}%`}
+												</Typography>
+											</Box>
+										</Box>
+									</TableCell>
 									<TableCell>{value.title}</TableCell>
 									<TableCell>{value.text}</TableCell>
 									<TableCell>
@@ -89,7 +163,7 @@ const Todo = () => {
 												color="secondary"
 												startIcon={<Delete />}
 												onClick={() =>
-													dispatch(deletetodo(uid, value.id, '/'))
+													dispatch(deletetodo(uid, value.id))
 												}>
 												削除
 											</Button>
