@@ -3,31 +3,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUsername } from '../../reducks/users/selectors';
 import { push } from 'connected-react-router';
 import { signOut } from '../../reducks/users/operations';
-import { Button, AppBar, Toolbar, Typography } from '@material-ui/core';
-// import { Delete, Create, Check, AddRounded } from '@material-ui/icons';
-// import { getTodos } from '../reducks/todo/selectors';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import styled from 'styled-components'
 
-const useStyles = makeStyles(() =>
-	createStyles({
-		grow: {
-			flexGrow: 1,
-		},
-	}),
-);
+const HeadInner = styled.div`
+	padding: 0 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #fff;
+	background: #3f51b5;
+	box-shadow:
+		0px 2px 4px -1px rgba(0,0,0,0.2),
+		0px 4px 5px 0px rgba(0,0,0,0.14),
+		0px 1px 10px 0px rgba(0,0,0,0.12);
+	z-index: 100;
+`
+
+const HeadTitle = styled.h2`
+	color: #fff;
+	font-size: 24px
+`
+
+const NavInner = styled.div`
+	display: flex;
+	justify-content: space-around;
+	width: 40%;
+`
 
 const Header = () => {
 	const dispatch = useDispatch();
 	const selector = useSelector((state: any) => state);
 	const username = getUsername(selector);
 
-	const classes = useStyles();
-
 	return (
-		<div className={classes.grow}>
-			<AppBar position="static">
-				<Toolbar>
-					<Typography variant="h5" className={classes.grow}>おいでませ、{username}さん</Typography>
+			<HeadInner>
+				<HeadTitle>おいでませ、{username}さん</HeadTitle>
+				<NavInner>
 					<Button
 						size="large"
 						variant="contained"
@@ -49,9 +61,8 @@ const Header = () => {
 						onClick={() => dispatch(signOut())}>
 						ログアウト
 					</Button>
-				</Toolbar>
-			</AppBar>
-		</div>
+				</NavInner>
+			</HeadInner>
 	);
 };
 
