@@ -17,6 +17,45 @@ const validation = (title: any, text: any, deadLine: any) => {
 		alert('入力してください');
 		return;
 	}
+	return true;
+};
+
+const validationProgress = (progress: any) => {
+	if (progress === '') {
+		alert('入力してください');
+		return;
+	}else if(progress > 100 || progress < 0 ){
+		alert('0~100の範囲で入力してください')
+		return;
+	}
+	return true;
+};
+
+const validationDeadLine = (deadLine: any) => {
+	const today = new Date();
+	const year = today.getFullYear();
+	const month = today.getMonth() + 1;
+	const date = today.getDate();
+
+	const deadYear = Number(deadLine.split('-')[0]);
+	const deadMonth = Number(deadLine.split('-')[1]);
+	const deadDate = Number(deadLine.split('-')[2]);
+
+	if( deadYear < year) {
+		alert('過去の日付は選べません');
+		return;
+	} else if (deadYear === year){
+		if(deadMonth < month) {
+			alert('過去の日付は選べません');
+			return;
+		}else if (deadMonth === month){
+			if(deadDate < date){
+				alert('過去の日付は選べません');
+				return;
+			}
+		}
+	}
+	return true;
 };
 
 export const listenTodos = (uid: any) => {
@@ -59,7 +98,6 @@ export const listenTodos = (uid: any) => {
 
 export const addtodo = (uid:any, title: any, text: any, deadLine: any) => {
 	return async (dispatch: any) => {
-		validation(title, text, deadLine);
 		const timeStamp = FirebaseTimestamp.now();
 		const id = todoRef.doc().id;
 		const data = {
@@ -72,6 +110,10 @@ export const addtodo = (uid:any, title: any, text: any, deadLine: any) => {
 			create_at: timeStamp,
 			updated_at: timeStamp,
 		};
+
+		if (!(validation(title, text, deadLine) && validationDeadLine(deadLine))) {
+			return;
+		}
 
 		return todoRef
 			.doc(uid)
@@ -90,7 +132,6 @@ export const addtodo = (uid:any, title: any, text: any, deadLine: any) => {
 
 export const edittodo = (uid: any, id: any, title: any, text: any, deadLine: any, progress: any) => {
 	return async (dispatch: any) => {
-		validation(title, text, deadLine);
 		const timeStamp = FirebaseTimestamp.now();
 		const data = {
 			title: title,
@@ -98,6 +139,10 @@ export const edittodo = (uid: any, id: any, title: any, text: any, deadLine: any
 			deadLine: deadLine,
 			progress: progress,
 			updated_at: timeStamp,
+		}
+
+		if (!(validation(title, text, deadLine) && validationProgress(progress) && validationDeadLine(deadLine))) {
+			return;
 		}
 
 		return todoRef
