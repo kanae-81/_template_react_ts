@@ -221,6 +221,7 @@ export const sorttodo = (todos: any, sortName: any, sortType: any) => {
 	return async (dispatch: any) => {
 		const data: any = todos.todos;
 		// 期限順に並び替え
+		console.log(data);
 		if (sortName === 'deadLine') {
 			if (sortType === 'up') {
 				data.sort(function (a: any, b: any) {
@@ -243,7 +244,7 @@ export const sorttodo = (todos: any, sortName: any, sortType: any) => {
 		} else if (sortName === 'progress') {
 			if (sortType === 'up') {
 				data.sort(function (a: any, b: any) {
-					if (a.progress < b.progress) {
+					if (Number(a.progress) < Number(b.progress)) {
 						return -1;
 					} else {
 						return 1;
@@ -251,7 +252,7 @@ export const sorttodo = (todos: any, sortName: any, sortType: any) => {
 				});
 			} else if (sortType === 'down') {
 				data.sort(function (a: any, b: any) {
-					if (a.progress > b.progress) {
+					if (Number(a.progress) > Number(b.progress)) {
 						return -1;
 					} else {
 						return 1;
@@ -259,6 +260,7 @@ export const sorttodo = (todos: any, sortName: any, sortType: any) => {
 				});
 			}
 		}
+		console.log(data);
 		dispatch(sortTodoAction(data));
 	};
 };
