@@ -6,4 +6,4 @@ export { default as EditTodo } from './EditTodo';
 export { default as SignUp } from './SignUp';
 export { default as Home } from './Home';
 export { default as Shuzo } from './Shuzo';
-export { default as Header } from './Parts/Header';
+export { default as Header } from './Parts/Header/Header';

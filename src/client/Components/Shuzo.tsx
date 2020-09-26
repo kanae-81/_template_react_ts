@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUsername } from '../reducks/users/selectors';
 
-import Header from './Parts/Header';
+import Header from './Parts/Header/Header';
 import shuzoList from '../Data/shuzo.json';
 import styled from 'styled-components'
 

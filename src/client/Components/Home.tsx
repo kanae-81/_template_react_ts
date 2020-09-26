@@ -4,7 +4,7 @@ import { getUsername } from '../reducks/users/selectors';
 import { push } from 'connected-react-router';
 import { Button, Box } from '@material-ui/core';
 
-import Header from './Parts/Header';
+import Header from './Parts/Header/Header';
 
 const Home = () => {
 	const dispatch = useDispatch();
