@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
-
 import { Provider } from 'react-redux';
 import { store } from './Store/store';
 import { ConnectedRouter } from 'connected-react-router';
 import * as History from 'history';
+
+import './stylesheets/reset.scss';
 
 const history = History.createBrowserHistory();
 const todoStore = store(history);

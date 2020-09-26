@@ -4,7 +4,6 @@ import { addtodo } from '../reducks/todo/operations';
 import { push } from 'connected-react-router';
 import { getUserId } from '../reducks/users/selectors';
 
-
 import {
     Button,
     TextField,
