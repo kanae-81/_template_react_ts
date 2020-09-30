@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { edittodo } from '../reducks/todo/operations';
+import { edittodo } from '../../../reducks/todo/operations';
 import { push } from 'connected-react-router';
-import { getUserId } from '../reducks/users/selectors';
+import { getUserId } from '../../../reducks/users/selectors';
 
 import { Button, TextField, Box } from '@material-ui/core';
 
 import { Create, KeyboardReturn } from '@material-ui/icons';
 
-import Header from './organisms/Header/Header';
+import Header from '../../organisms/Header/Header';
 
 const EditTodo = () => {
 	const dispatch = useDispatch();

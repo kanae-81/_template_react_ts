@@ -1,0 +1,24 @@
+.reset {
+  width: 80%;
+  max-width: 450px;
+  margin: 0 auto;
+
+  &__inner {
+    margin: 80px 0;
+    padding: 50px;
+    box-shadow: 0 0 5px #3f51b5 inset;
+  }
+
+  &__title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  &__button {
+    margin-top: 20px;
+  }
+
+  &__link {
+    margin-top: 20px;
+  }
+}

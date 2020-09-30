@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addtodo } from '../reducks/todo/operations';
+import { addtodo } from '../../../reducks/todo/operations';
 import { push } from 'connected-react-router';
-import { getUserId } from '../reducks/users/selectors';
+import { getUserId } from '../../../reducks/users/selectors';
 
 import {
     Button,

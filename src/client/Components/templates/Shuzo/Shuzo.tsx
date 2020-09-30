@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getUsername } from '../reducks/users/selectors';
+import { getUsername } from '../../../reducks/users/selectors';
 
-import Header from './organisms/Header/Header';
-import shuzoList from '../Data/shuzo.json';
+import Header from '../../organisms/Header/Header';
+import shuzoList from '../../../Data/shuzo.json';
 import styled from 'styled-components'
 
-import shuzoImg from '../Images/shuzo.jpg'
+import shuzoImg from '../../../Images/shuzo.jpg'
 
 const Title = styled.h2`
 	font-size: 1.8rem;

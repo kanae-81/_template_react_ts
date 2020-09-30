@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsername, getUserId } from '../reducks/users/selectors';
+import { getUsername, getUserId } from '../../../reducks/users/selectors';
 import { push } from 'connected-react-router';
 import {
 	listenTodos,
 	deletetodo,
 	completedtodo,
 	sorttodo,
-} from '../reducks/todo/operations';
+} from '../../../reducks/todo/operations';
 import {
 	Table,
 	TableBody,
@@ -20,8 +20,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { Delete, Create, Check, AddRounded, ArrowDownwardRounded, ArrowUpwardRounded } from '@material-ui/icons';
-import { getTodos } from '../reducks/todo/selectors';
-import Header from './organisms/Header/Header';
+import { getTodos } from '../../../reducks/todo/selectors';
+import Header from '../../organisms/Header/Header';
 import styled from 'styled-components'
 
 const  SortBtn = styled.button`

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsername, getUserId } from '../reducks/users/selectors';
+import { getUsername, getUserId } from '../../../reducks/users/selectors';
 import { push } from 'connected-react-router';
-import { listenTodos, deletetodo, returntodo } from '../reducks/todo/operations';
+import { listenTodos, deletetodo, returntodo } from '../../../reducks/todo/operations';
 import {
 	Table,
 	TableBody,
@@ -13,9 +13,9 @@ import {
 	Box,
 } from '@material-ui/core';
 import { Delete, Replay } from '@material-ui/icons';
-import { getTodos } from '../reducks/todo/selectors';
+import { getTodos } from '../../../reducks/todo/selectors';
 
-import Header from './organisms/Header/Header';
+import Header from '../../organisms/Header/Header';
 
 const CompleteTodo = () => {
 	const dispatch = useDispatch();

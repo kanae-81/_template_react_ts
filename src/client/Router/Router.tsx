@@ -10,8 +10,8 @@ import {
 	Shuzo,
 } from '../Components/index';
 import Auth from '../Auth';
-import Reset from '../Components/Reset';
-import CompleteTodo from '../Components/CompleteTodo';
+import Reset from '../Components/templates/Reset/Reset';
+import CompleteTodo from '../Components/templates/CompleteTodo/CompleteTodo';
 
 const Router = () => {
 	return (
