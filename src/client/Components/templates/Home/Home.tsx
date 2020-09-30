@@ -19,7 +19,7 @@ const Home = () => {
 			<div className={styles.home}>
 				<div className={styles.home__inner}>
 					<h2 className={styles.home__title}>{username}さんのページ</h2>
-					<div className={styles.homeContent}>
+					<div className={styles.home__content}>
 						<ButtonContent
 							text={'TODOリスト'}
 							path={'/todo'}
