@@ -38,7 +38,7 @@ const Todo = () => {
 			<Header />
 			<div className={styles.todo}>
 				<div className={styles.todo__inner}>
-					<h2 className={styles.todo__title}>Todo</h2>
+					<h2 className={styles.todo__title}>TODOリスト</h2>
 					<Box component="div" m={2}>
 						<button className={styles.todo__newBtn}
 							type="button"

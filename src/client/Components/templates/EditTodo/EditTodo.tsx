@@ -4,11 +4,10 @@ import { edittodo } from '../../../reducks/todo/operations';
 import { push } from 'connected-react-router';
 import { getUserId } from '../../../reducks/users/selectors';
 
-import { Button, TextField, Box } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 import { Create, KeyboardReturn } from '@material-ui/icons';
-
-import Header from '../../organisms/Header/Header';
+import styles from './edittodo.module.scss';
 
 const EditTodo = () => {
 	const dispatch = useDispatch();
@@ -62,83 +61,91 @@ const EditTodo = () => {
 	);
 
 	return (
-		<React.Fragment>
-			<Header />
-			<h2>編集</h2>
-			<div>
-				<label htmlFor="title">
-					<TextField
-						label="Title"
-						type="text"
-						defaultValue={title}
-						variant="filled"
-						size="small"
-						onChange={InputTitle}
-					/>
-				</label>
-				<br></br>
-				<label htmlFor="text">
-					<TextField
-						label="Text"
-						type="text"
-						variant="filled"
-						defaultValue={text}
-						fullWidth
-						margin="normal"
-						InputLabelProps={{
-							shrink: true,
-						}}
-						onChange={InputText}
-					/>
-				</label>
-				<br></br>
-				<label htmlFor="text">
-					<TextField
-						label="deadLine"
-						variant="filled"
-						type="date"
-						defaultValue={deadLine}
-						margin="normal"
-						InputLabelProps={{
-							shrink: true,
-						}}
-						onChange={InputDeadLine}
-					/>
-				</label>
-				<br></br>
-				<label htmlFor="number">
-					<TextField
-						label="progress"
-						variant="filled"
-						type="number"
-						defaultValue={progress}
-						margin="normal"
-						InputLabelProps={{
-							shrink: true,
-						}}
-						onChange={InputProgress}
-					/>
-				</label>
+		<>
+			<div className={styles.edittodo}>
+				<div className={styles.edittodo__inner}>
+					<h2 className={styles.edittodo__title}>編集</h2>
+					<div className={styles.form}>
+						<div className={styles.form__inner}>
+							<label htmlFor="title">
+								<TextField
+									label="Title"
+									type="text"
+									defaultValue={title}
+									variant="filled"
+									size="small"
+									onChange={InputTitle}
+								/>
+							</label>
+							<br></br>
+							<label htmlFor="text">
+								<TextField
+									label="Text"
+									type="text"
+									variant="filled"
+									defaultValue={text}
+									fullWidth
+									margin="normal"
+									InputLabelProps={{
+										shrink: true,
+									}}
+									onChange={InputText}
+								/>
+							</label>
+							<br></br>
+							<label htmlFor="text">
+								<TextField
+									label="deadLine"
+									variant="filled"
+									type="date"
+									defaultValue={deadLine}
+									margin="normal"
+									InputLabelProps={{
+										shrink: true,
+									}}
+									onChange={InputDeadLine}
+								/>
+							</label>
+							<br></br>
+							<label htmlFor="number">
+								<TextField
+									label="progress"
+									variant="filled"
+									type="number"
+									defaultValue={progress}
+									margin="normal"
+									InputLabelProps={{
+										shrink: true,
+									}}
+									onChange={InputProgress}
+								/>
+							</label>
+						</div>
+						<div className={styles.form__button}>
+							<div className={styles.form__buttonBox}>
+								<Button
+									variant="contained"
+									color="primary"
+									startIcon={<Create />}
+									onClick={() => dispatch(edittodo(uid, id, title, text, deadLine, progress))}>
+									編集
+								</Button>
+							</div>
+							<div className={styles.form__buttonBox}>
+								<Button
+									variant="outlined"
+									color="primary"
+									startIcon={<KeyboardReturn />}
+									onClick={() => dispatch(push('/todo'))}>
+									戻る
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<Box component="span" m={1}>
-				<Button
-					variant="contained"
-					color="primary"
-					startIcon={<Create />}
-					onClick={() => dispatch(edittodo(uid, id, title, text, deadLine, progress))}>
-					編集
-				</Button>
-			</Box>
-			<Box component="span" m={1}>
-				<Button
-					variant="outlined"
-					color="primary"
-					startIcon={<KeyboardReturn />}
-					onClick={() => dispatch(push('/'))}>
-					戻る
-				</Button>
-			</Box>
-		</React.Fragment>
+
+		</>
 	);
 };
 

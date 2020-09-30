@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addtodo } from '../../../reducks/todo/operations';
 import { push } from 'connected-react-router';
 import { getUserId } from '../../../reducks/users/selectors';
+import styles from './addtodo.module.scss'
 
 import {
     Button,
     TextField,
-    Box,
 } from '@material-ui/core';
 
 import {
@@ -32,54 +32,62 @@ const AddTodo = () => {
         setDsadLine(event.target.value);
     }, [setDsadLine])
     return (
-        <React.Fragment>
-            <h2>新規作成</h2>
-            <div>
-                <label htmlFor="title">
-                    <TextField
-                        label="Title"
-                        defaultValue={title}
-                        variant="filled"
-                        size="small"
-                        onChange={InputTitle}
-                    />
-                </label>
-                <br></br>
-                <label htmlFor="text">
-                    <TextField
-                        label="text"
-                        variant="filled"
-                        defaultValue={text}
-                        fullWidth
-                        margin="normal"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        onChange={InputText}
-                    />
-                </label>
-                <br></br>
-                <label htmlFor="text">
-                    <TextField
-                        label="deadLine"
-                        variant="filled"
-                        type="date"
-                        defaultValue={deadLine}
-                        margin="normal"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        onChange={InputDeadLine}
-                    />
-                </label>
+        <>
+            <div className={styles.addtodo}>
+                <div className={styles.addtodo__inner}>
+                    <h2 className={styles.addtodo__title}>新規作成</h2>
+                    <div className={styles.form}>
+                        <div className={styles.form__inner}>
+                            <label htmlFor="title">
+                                <TextField
+                                    label="Title"
+                                    defaultValue={title}
+                                    variant="filled"
+                                    size="small"
+                                    onChange={InputTitle}
+                                />
+                            </label>
+                            <br></br>
+                            <label htmlFor="text">
+                                <TextField
+                                    label="text"
+                                    variant="filled"
+                                    defaultValue={text}
+                                    fullWidth
+                                    margin="normal"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    onChange={InputText}
+                                />
+                            </label>
+                            <br></br>
+                            <label htmlFor="text">
+                                <TextField
+                                    label="deadLine"
+                                    variant="filled"
+                                    type="date"
+                                    defaultValue={deadLine}
+                                    margin="normal"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    onChange={InputDeadLine}
+                                />
+                            </label>
+                        </div>
+                    </div>
+                    <div className={styles.form__button}>
+                        <div className={styles.form__buttonBox}>
+                            <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(uid, title, text, deadLine))}>作成</Button>
+                        </div>
+                        <div className={styles.form__buttonBox}>
+                            <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />}  onClick={() => dispatch(push('/todo'))}>戻る</Button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <Box component="span" m={1}>
-                <Button variant="contained" color="primary" startIcon={<AddRounded />} onClick={() => dispatch(addtodo(uid, title, text, deadLine))}>作成</Button>
-            </Box>
-            <Box component="span" m={1}>
-                <Button variant="outlined" color="primary" startIcon={<KeyboardReturn />}  onClick={() => dispatch(push('/'))}>戻る</Button>
-            </Box>
-        </React.Fragment>
+        </>
     );
 };
 
