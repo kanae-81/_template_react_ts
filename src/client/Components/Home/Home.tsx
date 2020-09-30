@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsername } from '../../reducks/users/selectors';
 import { push } from 'connected-react-router';
-import Header from '../Parts/Header/Header';
+import Header from '../organisms/Header/Header';
 import styles from './home.module.scss';
 import { ButtonContent } from '../molecules';
 
@@ -12,7 +12,6 @@ const Home = () => {
 	const username = getUsername(selector);
 	const pageLink = (path: string) => {
 		dispatch(push(path));
-		console.log('test');
 	};
 	return (
 		<>

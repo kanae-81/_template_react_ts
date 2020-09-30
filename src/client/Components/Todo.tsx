@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core';
 import { Delete, Create, Check, AddRounded, ArrowDownwardRounded, ArrowUpwardRounded } from '@material-ui/icons';
 import { getTodos } from '../reducks/todo/selectors';
-import Header from './Parts/Header/Header';
+import Header from './organisms/Header/Header';
 import styled from 'styled-components'
 
 const  SortBtn = styled.button`

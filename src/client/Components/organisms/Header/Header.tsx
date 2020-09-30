@@ -5,34 +5,22 @@ import { push } from 'connected-react-router';
 import { signOut } from '../../../reducks/users/operations';
 import styles from './header.module.scss';
 
+import { Nav } from '../../molecules'
+
 const Header = () => {
 	const dispatch = useDispatch();
 	const selector = useSelector((state: any) => state);
 	const username = getUsername(selector);
+	const pageLink = {
+		pagemove: (path: string) => dispatch(push(path)),
+		logout: () => dispatch(signOut())
+	};
 
 	return (
 		<header className={styles.header}>
 			<div className={styles.header__inner}>
 				<h1 className={styles.header__title}>おいでませ、{username}さん</h1>
-				<nav className={styles.nav}>
-					<ul className={styles.nav__items}>
-						<li className={styles.nav__item}>
-							<a className={styles.nav__itemLink} onClick={() => dispatch(push('/'))}>
-								ホーム
-							</a>
-						</li>
-						<li className={styles.nav__item}>
-							<a className={styles.nav__itemLink} onClick={() => dispatch(push('/todo'))}>
-								TODOリスト
-							</a>
-						</li>
-						<li className={styles.nav__item}>
-							<a className={styles.nav__itemLink} onClick={() => dispatch(signOut())}>
-								ログアウト
-							</a>
-						</li>
-					</ul>
-				</nav>
+				<Nav pageLink={pageLink}/>
 			</div>
 		</header>
 	);

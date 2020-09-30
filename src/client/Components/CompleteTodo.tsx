@@ -15,7 +15,7 @@ import {
 import { Delete, Replay } from '@material-ui/icons';
 import { getTodos } from '../reducks/todo/selectors';
 
-import Header from './Parts/Header/Header';
+import Header from './organisms/Header/Header';
 
 const CompleteTodo = () => {
 	const dispatch = useDispatch();

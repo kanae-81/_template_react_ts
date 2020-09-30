@@ -8,7 +8,7 @@ import { Button, TextField, Box } from '@material-ui/core';
 
 import { Create, KeyboardReturn } from '@material-ui/icons';
 
-import Header from './Parts/Header/Header';
+import Header from './organisms/Header/Header';
 
 const EditTodo = () => {
 	const dispatch = useDispatch();
